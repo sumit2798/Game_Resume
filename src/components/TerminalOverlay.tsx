@@ -7,7 +7,7 @@ import { soundController } from '../utils/SoundController';
 import { X, Terminal as TerminalIcon, Sparkles } from 'lucide-react';
 
 export const TerminalOverlay: React.FC = () => {
-  const { terminalOpen, setTerminalOpen, triggerChapterTransition } = useGame();
+  const { terminalOpen, setTerminalOpen, triggerChapterTransition, resetSaveData } = useGame();
   const [input, setInput] = useState('');
   const [history, setHistory] = useState<string[]>([
     'Architect-OS v2.4 (x86_64-architect-linux)',
@@ -85,6 +85,10 @@ export const TerminalOverlay: React.FC = () => {
         break;
       case 'contact':
         newLogs.push('Email: sumit.patnaik@example.com | LinkedIn: sumit-patnaik | Location: India');
+        break;
+      case 'reset':
+        resetSaveData();
+        newLogs.push('[SAVE_DATA_RESET]: Player XP and achievements reset to initial starting values (Level 1, 150 XP).');
         break;
       case 'clear':
         setHistory([]);

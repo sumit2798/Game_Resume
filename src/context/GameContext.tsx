@@ -12,6 +12,7 @@ interface GameContextType {
   playerLevel: number;
   unlockedAchievements: string[];
   unlockAchievement: (id: string) => void;
+  resetSaveData: () => void;
   soundEnabled: boolean;
   toggleSound: () => void;
   terminalOpen: boolean;
@@ -34,10 +35,33 @@ interface GameContextType {
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
 
+const STORAGE_KEYS = {
+  XP: 'architect_game_xp',
+  ACHIEVEMENTS: 'architect_game_achievements',
+  SOUND: 'architect_game_sound'
+};
+
 export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentChapterId, setCurrentChapterId] = useState<string>('landing');
-  const [playerXP, setPlayerXP] = useState<number>(150);
-  const [unlockedAchievements, setUnlockedAchievements] = useState<string[]>([]);
+  
+  // Load initial XP from localStorage or default to 150
+  const [playerXP, setPlayerXP] = useState<number>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(STORAGE_KEYS.XP);
+      return saved ? parseInt(saved, 10) : 150;
+    }
+    return 150;
+  });
+
+  // Load initial Achievements from localStorage or default to []
+  const [unlockedAchievements, setUnlockedAchievements] = useState<string[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(STORAGE_KEYS.ACHIEVEMENTS);
+      return saved ? JSON.parse(saved) : [];
+    }
+    return [];
+  });
+
   const [soundEnabled, setSoundEnabled] = useState<boolean>(true);
   const [terminalOpen, setTerminalOpen] = useState<boolean>(false);
   const [resumeModalOpen, setResumeModalOpen] = useState<boolean>(false);
@@ -47,6 +71,24 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [transitionActive, setTransitionActive] = useState<boolean>(false);
   const [transitionTarget, setTransitionTarget] = useState<string | null>(null);
   const [recentAchievementUnlock, setRecentAchievementUnlock] = useState<AchievementItem | null>(null);
+
+  // Sync XP changes to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEYS.XP, playerXP.toString());
+    } catch {
+      // Handles private browsing storage limits silently
+    }
+  }, [playerXP]);
+
+  // Sync Achievements changes to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEYS.ACHIEVEMENTS, JSON.stringify(unlockedAchievements));
+    } catch {
+      // Handles private browsing storage limits silently
+    }
+  }, [unlockedAchievements]);
 
   // Level calculation: Every 400 XP = +1 Level
   const playerLevel = Math.floor(playerXP / 400) + 1;
@@ -66,6 +108,17 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
         soundController.playChime();
       }
     }
+  };
+
+  const resetSaveData = () => {
+    try {
+      localStorage.removeItem(STORAGE_KEYS.XP);
+      localStorage.removeItem(STORAGE_KEYS.ACHIEVEMENTS);
+    } catch {
+      // Ignore
+    }
+    setPlayerXP(150);
+    setUnlockedAchievements([]);
   };
 
   const clearRecentAchievement = () => {
@@ -103,7 +156,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     };
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => window.addEventListener('keydown', handleKeyDown);
   }, [terminalOpen]);
 
   return (
@@ -114,6 +167,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
       playerLevel,
       unlockedAchievements,
       unlockAchievement,
+      resetSaveData,
       soundEnabled,
       toggleSound,
       terminalOpen,
