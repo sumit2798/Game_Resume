@@ -84,7 +84,7 @@ export const TerminalOverlay: React.FC = () => {
         setTerminalOpen(false);
         break;
       case 'contact':
-        newLogs.push('Email: sumit.patnaik@example.com | LinkedIn: sumit-patnaik | Location: India');
+        newLogs.push('Email: sumitpatnaik2798@gmail.com | Phone: +91 9337391815 | LinkedIn: sumit2798 | Location: India');
         break;
       case 'reset':
         resetSaveData();

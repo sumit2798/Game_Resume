@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { profileData } from '../data/profileData';
 import { soundController } from '../utils/SoundController';
-import { Mail, Send, CheckCircle2, MapPin, Briefcase, Compass } from 'lucide-react';
+import { Mail, Phone, Send, CheckCircle2, MapPin, Briefcase, Compass } from 'lucide-react';
 import { LinkedinIcon, GithubIcon } from './SocialIcons';
 
 export const ContactSection: React.FC = () => {
@@ -43,7 +43,7 @@ export const ContactSection: React.FC = () => {
 
             <div className="space-y-4 text-xs font-sans text-slate-300 mb-8">
               <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center gap-3">
-                <Briefcase className="w-4 h-4 text-cyan-400" />
+                <Briefcase className="w-4 h-4 text-cyan-400 flex-shrink-0" />
                 <div>
                   <div className="font-mono text-[10px] text-slate-400 uppercase">Current Role</div>
                   <div className="font-bold text-slate-200">{profileData.title}</div>
@@ -51,7 +51,7 @@ export const ContactSection: React.FC = () => {
               </div>
 
               <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center gap-3">
-                <MapPin className="w-4 h-4 text-emerald-400" />
+                <MapPin className="w-4 h-4 text-emerald-400 flex-shrink-0" />
                 <div>
                   <div className="font-mono text-[10px] text-slate-400 uppercase">Location</div>
                   <div className="font-bold text-slate-200">{profileData.location}</div>
@@ -59,7 +59,23 @@ export const ContactSection: React.FC = () => {
               </div>
 
               <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center gap-3">
-                <Compass className="w-4 h-4 text-amber-400" />
+                <Mail className="w-4 h-4 text-cyan-400 flex-shrink-0" />
+                <div>
+                  <div className="font-mono text-[10px] text-slate-400 uppercase">Direct Email</div>
+                  <a href={`mailto:${profileData.email}`} className="font-bold text-cyan-300 hover:underline">{profileData.email}</a>
+                </div>
+              </div>
+
+              <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center gap-3">
+                <Phone className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                <div>
+                  <div className="font-mono text-[10px] text-slate-400 uppercase">Contact Number</div>
+                  <a href={`tel:${profileData.phone}`} className="font-bold text-emerald-300 hover:underline">{profileData.phone}</a>
+                </div>
+              </div>
+
+              <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center gap-3">
+                <Compass className="w-4 h-4 text-amber-400 flex-shrink-0" />
                 <div>
                   <div className="font-mono text-[10px] text-slate-400 uppercase">Career Target</div>
                   <div className="font-bold text-slate-200">{profileData.careerGoal}</div>
@@ -71,18 +87,19 @@ export const ContactSection: React.FC = () => {
           {/* Social Links */}
           <div>
             <div className="text-xs font-mono text-slate-400 uppercase mb-3">Direct Networks</div>
-            <div className="flex gap-3">
+            <div className="grid grid-cols-2 gap-2">
               {profileData.socialLinks.map((link) => (
                 <a
                   key={link.platform}
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 py-2.5 px-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 text-xs font-mono hover:border-cyan-500/50 hover:text-cyan-300 transition-all text-center flex items-center justify-center gap-2"
+                  className="py-2.5 px-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 text-xs font-mono hover:border-cyan-500/50 hover:text-cyan-300 transition-all text-center flex items-center justify-center gap-2"
                 >
                   {link.platform === 'LinkedIn' && <LinkedinIcon className="w-4 h-4 text-blue-400" />}
                   {link.platform === 'GitHub' && <GithubIcon className="w-4 h-4 text-slate-200" />}
                   {link.platform === 'Email' && <Mail className="w-4 h-4 text-cyan-400" />}
+                  {link.platform === 'Phone' && <Phone className="w-4 h-4 text-emerald-400" />}
                   {link.platform}
                 </a>
               ))}

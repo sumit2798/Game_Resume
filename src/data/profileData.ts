@@ -3,6 +3,8 @@ export interface Profile {
   title: string;
   currentCompany: string;
   location: string;
+  phone: string;
+  email: string;
   experienceYears: number;
   primaryExpertise: string[];
   careerPath: string[];
@@ -25,6 +27,8 @@ export const profileData: Profile = {
   title: "Consultant — Enterprise Systems & Architecture",
   currentCompany: "Deloitte India",
   location: "India",
+  phone: "+91 9337391815",
+  email: "sumitpatnaik2798@gmail.com",
   experienceYears: 5,
   primaryExpertise: [
     "Siebel CRM",
@@ -42,8 +46,9 @@ export const profileData: Profile = {
     { label: "Career Chapters", value: "4", icon: "Compass" }
   ],
   socialLinks: [
-    { platform: "LinkedIn", url: "https://linkedin.com/in/sumit-patnaik", icon: "Linkedin" },
-    { platform: "GitHub", url: "https://github.com/sumitpatnaik", icon: "Github" },
-    { platform: "Email", url: "mailto:sumit.patnaik@example.com", icon: "Mail" }
+    { platform: "LinkedIn", url: "https://www.linkedin.com/in/sumit2798", icon: "Linkedin" },
+    { platform: "Email", url: "mailto:sumitpatnaik2798@gmail.com", icon: "Mail" },
+    { platform: "Phone", url: "tel:+919337391815", icon: "Phone" },
+    { platform: "GitHub", url: "https://github.com/sumit2798", icon: "Github" }
   ]
 };

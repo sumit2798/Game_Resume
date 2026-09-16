@@ -55,9 +55,11 @@ export const ResumeModal: React.FC = () => {
               <p className="text-xs text-slate-400 mt-1 max-w-xl">{profileData.bio}</p>
             </div>
             <div className="text-xs font-mono text-slate-400 space-y-1">
-              <div>📍 {profileData.location}</div>
-              <div>💼 {profileData.experienceYears}+ Years Experience</div>
-              <div>🎯 Goal: Scalable Systems & AI Architecture</div>
+              <div>📍 Location: {profileData.location}</div>
+              <div>📞 Phone: {profileData.phone}</div>
+              <div>✉️ Email: {profileData.email}</div>
+              <div>🔗 LinkedIn: linkedin.com/in/sumit2798</div>
+              <div>💼 Experience: {profileData.experienceYears}+ Years</div>
             </div>
           </div>
 

@@ -193,7 +193,7 @@ export const LandingPage: React.FC = () => {
         {/* Social Quick Links */}
         <div className="mt-8 flex items-center justify-center gap-4">
           <a
-            href="https://linkedin.com/in/sumit-patnaik"
+            href="https://www.linkedin.com/in/sumit2798"
             target="_blank"
             rel="noopener noreferrer"
             className="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800 text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 transition-all"
@@ -202,7 +202,7 @@ export const LandingPage: React.FC = () => {
             <LinkedinIcon className="w-5 h-5" />
           </a>
           <a
-            href="https://github.com/sumitpatnaik"
+            href="https://github.com/sumit2798"
             target="_blank"
             rel="noopener noreferrer"
             className="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800 text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 transition-all"
@@ -211,7 +211,7 @@ export const LandingPage: React.FC = () => {
             <GithubIcon className="w-5 h-5" />
           </a>
           <a
-            href="mailto:sumit.patnaik@example.com"
+            href={`mailto:${profileData.email}`}
             className="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800 text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 transition-all"
             title="Email Direct"
           >
